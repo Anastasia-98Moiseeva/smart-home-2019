@@ -1,21 +1,14 @@
 package ru.sbt.mipt.oop;
 
-
-import java.io.IOException;
-
-
 public class EventWorker {
-
-    SensorEvent event;
 
     private static SmartHome smartHome;
 
-    EventWorker(SensorEvent event_, SmartHome smartHome_){
-        event = event_;
+    EventWorker(SmartHome smartHome_){
         smartHome = smartHome_;
     }
 
-    public void work() throws IOException {
+    public void work(SensorEvent event) {
 
         for (Room room : smartHome.getRooms()) {
 
@@ -29,24 +22,24 @@ public class EventWorker {
                     lightEvent = true;
                     positiveEvent = true;
                     message = " was turned on.";
-                    recognizeEvent(lightEvent, positiveEvent, message, room);
+                    recognizeEvent(lightEvent, positiveEvent, message, room, event);
                     break;
 
                 case LIGHT_OFF:
                     lightEvent = true;
                     message = " was turned off.";
-                    recognizeEvent(lightEvent, positiveEvent, message, room);
+                    recognizeEvent(lightEvent, positiveEvent, message, room, event);
                     break;
 
                 case DOOR_OPEN:
                     positiveEvent = true;
                     message = " was opened.";
-                    recognizeEvent(lightEvent, positiveEvent, message, room);
+                    recognizeEvent(lightEvent, positiveEvent, message, room, event);
                     break;
 
                 case DOOR_CLOSED:
                     message =" was closed.";
-                    recognizeEvent(lightEvent, positiveEvent, message, room);
+                    recognizeEvent(lightEvent, positiveEvent, message, room, event);
                     break;
             }
         }
@@ -56,17 +49,18 @@ public class EventWorker {
         System.out.println("Pretent we're sending command " + command);
     }
 
-    private void recognizeEvent(boolean lightEvent, boolean positiveEvent, String message, Room room){
+    private void recognizeEvent(boolean lightEvent, boolean positiveEvent,
+                                String message, Room room, SensorEvent event){
 
         if (lightEvent){
-            workForLight(positiveEvent, message, room);
+            workForLight(positiveEvent, message, room, event);
 
         } else {
-            workForDoor(positiveEvent, message, room);
+            workForDoor(positiveEvent, message, room, event);
         }
     }
 
-    private void workForLight(boolean positiveEvent, String message, Room room){
+    private void workForLight(boolean positiveEvent, String message, Room room, SensorEvent event){
 
         for (Light light : room.getLights()) {
 
@@ -77,7 +71,7 @@ public class EventWorker {
         }
     }
 
-    private void workForDoor(boolean positiveEvent, String message, Room room){
+    private void workForDoor(boolean positiveEvent, String message, Room room, SensorEvent event){
 
         for (Door door : room.getDoors()) {
 
@@ -108,4 +102,5 @@ public class EventWorker {
         }
 
     }
+
 }
