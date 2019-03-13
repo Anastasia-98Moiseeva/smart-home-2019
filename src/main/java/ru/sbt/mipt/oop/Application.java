@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import com.google.gson.Gson;
+import org.w3c.dom.events.Event;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,17 +13,24 @@ public class Application {
 
         EventProducer eventProducer = new EventProducer();
 
-        // считываем состояние дома из файла
-        Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+        HomeState state = new HomeState();
+        SmartHome smartHome = state.count();
+
+        EventWorker eventWorker = new EventWorker();
+
+        Handler eLight = new LightWorker();
+        eventWorker.add(eLight);
+
+        Handler eDoor = new DoorWorker();
+        eventWorker.add(eDoor);
 
         // начинаем цикл обработки событий
         SensorEvent event = eventProducer.getNextSensorEvent();
 
         while (event != null) {
-            EventWorker eventWorker = new EventWorker(event);
-            eventWorker.work(smartHome);
+
+            System.out.println("Got event: " + event);
+            eventWorker.workEvent(smartHome, event);
             event = eventProducer.getNextSensorEvent();
         }
     }

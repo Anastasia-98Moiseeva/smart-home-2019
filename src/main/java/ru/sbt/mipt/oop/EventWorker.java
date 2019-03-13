@@ -1,30 +1,25 @@
 package ru.sbt.mipt.oop;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 public class EventWorker {
 
-    SensorEvent event;
+    Collection<Handler> events;
 
-    EventWorker(SensorEvent event_) {
-        event = event_;
+    EventWorker() {
+        events = new ArrayList<>();
     }
 
-    public void work(SmartHome smartHome) {
+    public void add(Handler e){
+        events.add(e);
+    }
 
-        System.out.println("Got event: " + event);
+    public void workEvent(SmartHome smartHome, SensorEvent event) {
         for (Room room : smartHome.getRooms()) {
-            if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-
-                // событие от источника света
-                LightWorker lightWorker = new LightWorker();
-                lightWorker.work(room, event);
-            }
-            if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-
-                // событие от двери
-                DoorWorker doorWorker = new DoorWorker();
-                doorWorker.work(room, event, smartHome);
+            for (Handler e : events) {
+                e.work(smartHome, room, event);
             }
         }
     }

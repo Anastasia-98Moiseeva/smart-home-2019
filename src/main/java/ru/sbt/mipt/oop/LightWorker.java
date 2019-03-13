@@ -2,9 +2,9 @@ package ru.sbt.mipt.oop;
 
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 
-public class LightWorker {
+public class LightWorker implements Handler {
 
-    public static void work(Room room, SensorEvent event) {
+    public void work(SmartHome smartHome, Room room, SensorEvent event) {
         // событие от источника света
         for (Light light : room.getLights()) {
 
