@@ -1,11 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import com.google.gson.Gson;
-import org.w3c.dom.events.Event;
+import ru.sbt.mipt.oop.event.EventProducer;
+import ru.sbt.mipt.oop.event.event_handler.*;
+import ru.sbt.mipt.oop.sensor.SensorEvent;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Application {
 
@@ -14,23 +13,22 @@ public class Application {
         EventProducer eventProducer = new EventProducer();
 
         HomeState state = new HomeState();
-        SmartHome smartHome = state.count();
+        SmartHome smartHome = state.reload();
 
-        EventWorker eventWorker = new EventWorker();
+        CompositeHandler compositeHandler = new CompositeHandler();
 
-        Handler eLight = new LightWorker();
-        eventWorker.add(eLight);
+        Handler eLight = new LightHandler();
+        compositeHandler.add(new HandlerDecorator(eLight));
 
-        Handler eDoor = new DoorWorker();
-        eventWorker.add(eDoor);
+        Handler eDoor = new DoorHandler();
+        compositeHandler.add(new HandlerDecorator(eDoor));
 
         // начинаем цикл обработки событий
         SensorEvent event = eventProducer.getNextSensorEvent();
 
         while (event != null) {
-
             System.out.println("Got event: " + event);
-            eventWorker.workEvent(smartHome, event);
+            compositeHandler.work(smartHome, event);
             event = eventProducer.getNextSensorEvent();
         }
     }

@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class HomeState {
+public class HomeState implements State{
 
-    public static SmartHome count() throws IOException {
+    public SmartHome reload() throws IOException {
         // считываем состояние дома из файла
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
