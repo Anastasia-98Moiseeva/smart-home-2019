@@ -9,13 +9,13 @@ import java.util.Collection;
 
 public class CompositeHandler implements Handler {
 
-    Collection<HandlerDecorator> events;
+    Collection<Handler> events;
 
     public CompositeHandler() {
         events = new ArrayList<>();
     }
 
-    public void add(HandlerDecorator e){
+    public void add(Handler e){
         events.add(e);
     }
 

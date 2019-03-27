@@ -12,8 +12,7 @@ public class ActivatedTest implements TestSignalState{
     public void testChangeState() {
         Signaling signaling = new Signaling("123");
         Activated activated = new Activated(signaling);
-       // signaling.updateState(activated);
-        activated.changeState("123");
+        activated.deactivate("123");
         Assert.assertEquals(signaling.isAlarm(), false);
         Assert.assertEquals(signaling.isActive(), false);
     }

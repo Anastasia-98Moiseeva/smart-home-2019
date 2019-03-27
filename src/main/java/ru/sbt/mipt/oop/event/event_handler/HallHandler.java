@@ -15,16 +15,19 @@ public class HallHandler implements Handler{
         //DoorHandler doorHandler = new DoorHandler();
         //doorHandler.work(smartHome, event);
 
-        for (Room room : smartHome.getRooms()) {
+        if (event.getObjectId().equals("4")) {
 
-            for (Door door : room.getDoors()) {
+            for (Room room : smartHome.getRooms()) {
 
-                SensorEventType type = event.getType();
-                String roomName = room.getName();
+                for (Door door : room.getDoors()) {
 
-                if (type.equals(SensorEventType.DOOR_CLOSED) &&
-                        roomName.equals("hall")) {
-                    turnOffLight(smartHome);
+                    SensorEventType type = event.getType();
+                    String roomName = room.getName();
+
+                    if (type.equals(SensorEventType.DOOR_CLOSED) &&
+                            roomName.equals("hall")) {
+                        turnOffLight(smartHome);
+                    }
                 }
             }
         }

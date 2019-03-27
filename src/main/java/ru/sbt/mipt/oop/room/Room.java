@@ -30,17 +30,13 @@ public class Room implements Actionable {
     }
 
     public void execute (Action action, String message) {
-        if (action.eventType.equals(SensorEventType.DOOR_OPEN) ||
-                action.eventType.equals(SensorEventType.DOOR_CLOSED)) {
-            for (Door door : doors) {
-                door.execute(action, message);
-            }
+
+        for (Door door : doors) {
+            door.execute(action, message);
         }
-        if (action.eventType.equals(SensorEventType.LIGHT_ON) ||
-                    action.eventType.equals(SensorEventType.LIGHT_OFF)) {
-            for (Light light : lights) {
-                light.execute(action, message);
-            }
+
+        for (Light light : lights) {
+            light.execute(action, message);
         }
     }
 }

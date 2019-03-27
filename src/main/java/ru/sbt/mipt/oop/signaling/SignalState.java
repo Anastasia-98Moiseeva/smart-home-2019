@@ -8,5 +8,11 @@ public abstract class SignalState {
         this.signaling = signaling;
     }
 
-    public abstract void changeState(String code);
+    abstract void activate(String code);
+
+    abstract void deactivate(String code);
+
+    public void alarm() {
+        signaling.updateState(new Alarm(signaling));
+    }
 }

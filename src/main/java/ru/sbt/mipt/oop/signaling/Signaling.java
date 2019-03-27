@@ -24,15 +24,7 @@ public class Signaling {
         this.alarm = false;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public SignalState getState() {
-        return state;
-    }
-
-    public void setActive(boolean active) {
+    private void setActive(boolean active) {
         this.active = active;
     }
 
@@ -48,6 +40,19 @@ public class Signaling {
         return alarm;
     }
 
+    public SignalState getState() {
+        return state;
+    }
+
+    public void setState(boolean active, boolean alarm) {
+        setAlarm(alarm);
+        setActive(active);
+    }
+
+    public String getCode() {
+        return code;
+    }
+
     public boolean checkCode(String code) {
         return code.equals(this.code);
     }
@@ -56,4 +61,15 @@ public class Signaling {
         this.state = state;
     }
 
+    public void activate(String code) {
+        state.activate(code);
+    }
+
+    public void deactivate(String code) {
+        state.deactivate(code);
+    }
+
+    public void alarm() {
+        state.alarm();
+    }
 }

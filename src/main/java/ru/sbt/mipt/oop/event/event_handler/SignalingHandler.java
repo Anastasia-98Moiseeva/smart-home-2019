@@ -17,7 +17,7 @@ public class SignalingHandler implements Handler{
 
             if (!(signaling.getState() instanceof Deactivated)){
                 Deactivated deactivated = new Deactivated(signaling);
-                deactivated.changeState(signaling.getCode());
+                deactivated.activate(signaling.getCode());
             }
         }
 
@@ -27,12 +27,12 @@ public class SignalingHandler implements Handler{
 
             if (signaling.getState() instanceof Activated){
                 Activated activated = new Activated(signaling);
-                activated.changeState(signaling.getCode());
+                activated.deactivate(signaling.getCode());
             }
 
             if (signaling.getState() instanceof Alarm){
                 Alarm alarm = new Alarm(signaling);
-                alarm.changeState(signaling.getCode());
+                alarm.deactivate(signaling.getCode());
             }
         }
     }

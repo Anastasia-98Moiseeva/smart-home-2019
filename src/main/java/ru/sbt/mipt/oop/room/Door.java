@@ -22,23 +22,25 @@ public class Door {
     }
 
     public void execute (Action action, String message) {
-        if (action.objectId.equals(id)) {
+
+        if ((action.eventType.equals(SensorEventType.DOOR_OPEN) ||
+                action.eventType.equals(SensorEventType.DOOR_CLOSED)) &&
+                action.objectId.equals(id)) {
+
             SensorEventType eventType = action.eventType;
+
             if (eventType == SensorEventType.DOOR_OPEN) {
                 runExecution(true, message + " was opened");
             }
+
             if (eventType == SensorEventType.DOOR_CLOSED) {
                 runExecution(false, message + " was closed");
-
-                // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                if (message.equals(" in room hall")) {
-                    HallHandler hall = new HallHandler();
-                    hall.work(action.smartHome, action.event);
-                }
+                HallHandler hall = new HallHandler();
+                hall.work(action.smartHome, action.event);
             }
         }
     }
+
 
     public void runExecution(boolean positiveEvent, String message){
         this.setOpen(positiveEvent);

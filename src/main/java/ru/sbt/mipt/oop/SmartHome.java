@@ -16,9 +16,9 @@ public class SmartHome {
         signaling = new Signaling();
     }
 
-    public SmartHome(String code) {
+    public SmartHome(Signaling signal) {
         rooms = new ArrayList<>();
-        signaling = new Signaling(code);
+        signaling = signal;
     }
 
     public SmartHome(Collection<Room> rooms) {
@@ -26,9 +26,9 @@ public class SmartHome {
         signaling = new Signaling();
     }
 
-    public SmartHome(Collection<Room> rooms, String code) {
+    public SmartHome(Collection<Room> rooms,Signaling signal) {
         this.rooms = rooms;
-        signaling = new Signaling(code);
+        signaling = signal;
     }
 
     public Signaling getSignaling() { return signaling; }

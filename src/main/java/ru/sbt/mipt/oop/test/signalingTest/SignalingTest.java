@@ -14,14 +14,6 @@ public class SignalingTest{
         Assert.assertEquals(signaling.getCode(), "123");
     }
 
-
-    @Test
-    public void testSetActive() {
-        Signaling signaling = new Signaling("123");
-        signaling.setActive(true);
-        Assert.assertEquals(signaling.isActive(), true);
-    }
-
     @Test
     public void testIsActive() {
         Signaling signaling = new Signaling("123");

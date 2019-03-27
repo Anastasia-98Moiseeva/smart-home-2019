@@ -4,15 +4,18 @@ public class Alarm extends SignalState {
 
    public Alarm(Signaling signaling){
        super(signaling);
-       signaling.setActive(true);
-       signaling.setAlarm(true);
+       signaling.setState(true, true);
    }
+
     @Override
-    public void changeState(String code) {
+    public void activate(String code) {}
+
+    @Override
+    public void deactivate(String code) {
         if (signaling.checkCode(code)) {
             signaling.updateState(new Deactivated(signaling));
         } else {
-            signaling.updateState(new Alarm(signaling));
+            alarm();
         }
     }
 }

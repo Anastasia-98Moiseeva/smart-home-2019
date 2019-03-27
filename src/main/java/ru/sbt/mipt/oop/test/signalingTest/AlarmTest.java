@@ -13,7 +13,7 @@ public class AlarmTest implements TestSignalState{
         Signaling signaling = new Signaling("123");
         Alarm alarm = new Alarm(signaling);
         signaling.updateState(alarm);
-        alarm.changeState("123");
+        alarm.deactivate("123");
         Assert.assertEquals(signaling.isAlarm(), false);
         Assert.assertEquals(signaling.isActive(), false);
     }

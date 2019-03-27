@@ -4,16 +4,18 @@ public class Deactivated extends SignalState {
 
     public Deactivated(Signaling signaling){
         super(signaling);
-        signaling.setActive(false);
-        signaling.setAlarm(false);
+        signaling.setState(false, false);
     }
 
     @Override
-    public void changeState(String code) {
+    public void deactivate(String code) {}
+
+    @Override
+    public void activate(String code) {
         if (signaling.checkCode(code)) {
             signaling.updateState(new Activated(signaling));
         } else {
-            signaling.updateState(new Alarm(signaling));
+            alarm();
         }
     }
 }

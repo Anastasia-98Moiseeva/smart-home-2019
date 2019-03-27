@@ -12,7 +12,7 @@ public class DeactivatedTest implements TestSignalState{
         Signaling signaling = new Signaling("123");
         Deactivated deactivated = new Deactivated(signaling);
         signaling.updateState(deactivated);
-        deactivated.changeState("222");
+        deactivated.activate("222");
         Assert.assertEquals(signaling.isAlarm(), true);
         Assert.assertEquals(signaling.isActive(), true);
     }

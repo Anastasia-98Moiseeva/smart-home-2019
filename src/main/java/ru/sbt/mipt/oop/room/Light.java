@@ -25,16 +25,23 @@ public class Light{
     }
 
     public void execute (Action action, String message) {
-        if (action.objectId.equals(id)) {
+
+        if ((action.eventType.equals(SensorEventType.LIGHT_ON) ||
+                action.eventType.equals(SensorEventType.LIGHT_OFF)) &&
+                (action.objectId.equals(id))) {
+
             SensorEventType eventType = action.eventType;
+
             if (eventType == SensorEventType.LIGHT_ON) {
                 runExecution(true, message + " was turned on");
             }
+
             if (eventType == SensorEventType.LIGHT_OFF) {
                 runExecution(false, message + " was turned off");
             }
         }
     }
+
 
     public void runExecution(boolean positiveEvent, String message){
         this.setOn(positiveEvent);
