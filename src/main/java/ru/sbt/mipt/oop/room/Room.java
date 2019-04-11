@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.room;
 
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
-import ru.sbt.mipt.oop.sensor.SensorEventType;
 
 import java.util.Collection;
 
@@ -29,14 +28,9 @@ public class Room implements Actionable {
         return name;
     }
 
-    public void execute (Action action, String message) {
-
-        for (Door door : doors) {
-            door.execute(action, message);
-        }
-
-        for (Light light : lights) {
-            light.execute(action, message);
-        }
+    public void execute (Action action/*, String message*/) {
+        action.execute(this);
+        lights.forEach(light -> light.execute(action));
+        doors.forEach(door -> door.execute(action));
     }
 }

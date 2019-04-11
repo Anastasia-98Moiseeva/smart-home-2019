@@ -18,6 +18,6 @@ public class HandlerAdapter implements EventHandler {
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        handler.work(smartHome, new EventAdapter(event));
+        handler.work(smartHome, new EventAdapter(event).getSensorEvent());
     }
 }

@@ -12,25 +12,23 @@ import ru.sbt.mipt.oop.sensor.SensorEventType;
 public class HallHandler implements Handler{
 
     public void work(SmartHome smartHome, SensorEvent event) {
-        //DoorHandler doorHandler = new DoorHandler();
-        //doorHandler.work(smartHome, event);
 
-        if (event.getObjectId().equals("4")) {
+        for (Room room : smartHome.getRooms()) {
 
-            for (Room room : smartHome.getRooms()) {
+            for (Door door : room.getDoors()) {
 
-                for (Door door : room.getDoors()) {
+                SensorEventType type = event.getType();
+                String roomName = room.getName();
 
-                    SensorEventType type = event.getType();
-                    String roomName = room.getName();
+                if (type.equals(SensorEventType.DOOR_CLOSED) &&
+                        roomName.equals("hall") &&
+                        event.getObjectId().equals(door.getId())) {
 
-                    if (type.equals(SensorEventType.DOOR_CLOSED) &&
-                            roomName.equals("hall")) {
-                        turnOffLight(smartHome);
-                    }
+                    turnOffLight(smartHome);
                 }
             }
         }
+
     }
 
     private void turnOffLight(SmartHome smartHome){

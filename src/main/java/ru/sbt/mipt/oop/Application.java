@@ -23,6 +23,9 @@ public class Application {
         Handler eDoor = new DoorHandler();
         compositeHandler.add(new HandlerDecorator(eDoor));
 
+        Handler eHall = new HallHandler();
+        compositeHandler.add(new HandlerDecorator(eHall));
+
         // начинаем цикл обработки событий
         SensorEvent event = eventProducer.getNextSensorEvent();
 

@@ -6,13 +6,12 @@ import ru.sbt.mipt.oop.sensor.SensorEventType;
 
 import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 
-public class EventAdapter extends SensorEvent {
+public class EventAdapter {
 
     private CCSensorEvent ccSensorEvent;
 
     public EventAdapter (CCSensorEvent ccSensorEvent) { this.ccSensorEvent = ccSensorEvent;}
 
-    @Override
     public SensorEventType getType() {
         switch (ccSensorEvent.getEventType()) {
 
@@ -37,9 +36,13 @@ public class EventAdapter extends SensorEvent {
         return null;
     }
 
-    @Override
     public String getObjectId() {
         return ccSensorEvent.getObjectId();
+    }
+
+    public SensorEvent getSensorEvent() {
+        SensorEvent event = new SensorEvent(getType(), getObjectId());
+        return event;
     }
 
 }

@@ -41,11 +41,15 @@ public class SmartHome {
         return rooms;
     }
 
-    public void execute (Action action, String message){
-        for (Room room: rooms) {
+    public void execute (Action action/*, String message*/){
+        /*for (Room room: rooms) {
             message += room.getName();
             room.execute(action, message);
             message = " in room ";
+        }*/
+        action.execute(this);
+        for (Room room : rooms) {
+            room.execute(action);
         }
     }
 }
