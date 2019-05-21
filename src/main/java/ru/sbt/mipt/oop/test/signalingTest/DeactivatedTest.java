@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.test.signalingTest;
 
 import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.Test;
 import ru.sbt.mipt.oop.signaling.Deactivated;
 import ru.sbt.mipt.oop.signaling.Signaling;
