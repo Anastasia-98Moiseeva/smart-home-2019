@@ -1,6 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.room;
 
-public class Light {
+import ru.sbt.mipt.oop.Action;
+
+public class Light{
     private boolean isOn;
     private final String id;
 
@@ -20,4 +22,9 @@ public class Light {
     public void setOn(boolean on) {
         isOn = on;
     }
+
+    public void execute (Action action/*, String message*/) {
+        action.execute(this);
+    }
+
 }
